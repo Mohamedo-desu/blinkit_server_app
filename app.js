@@ -24,13 +24,13 @@ const start = async () => {
 
   await buildAdminRouter(app);
 
-  app.listen({ port: PORT }, (err, address) => {
+  app.listen({ port: PORT, host: "0.0.0.0" }, (err, address) => {
     if (err) {
       console.error(err);
       process.exit(1);
     }
     console.log(
-      `Blinkit Server listening at http://localhost:${PORT}${admin.options.rootPath}`
+      `Blinkit Server listening at ${address}${admin.options.rootPath}`
     );
   });
   app.ready().then(() => {

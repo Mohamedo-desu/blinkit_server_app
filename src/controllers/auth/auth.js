@@ -33,6 +33,8 @@ export const loginCustomer = async (req, res) => {
 
     const { accessToken, refreshToken } = await generateToken(customer);
 
+    console.log("1");
+
     return res.send({
       message: "Logged in successfully",
       accessToken,
@@ -40,7 +42,7 @@ export const loginCustomer = async (req, res) => {
       customer,
     });
   } catch (error) {
-    res.status(500).send({ message: "An error occurred", error });
+    return res.status(500).send({ message: "An error occurred", error });
   }
 };
 
@@ -62,7 +64,7 @@ export const loginDeliveryPartner = async (req, res) => {
       deliveryPartner,
     });
   } catch (error) {
-    res.status(500).send({ message: "An error occurred", error });
+    return res.status(500).send({ message: "An error occurred", error });
   }
 };
 
@@ -97,7 +99,7 @@ export const refreshToken = async (req, res) => {
       refreshToken: newRefreshToken,
     });
   } catch (error) {
-    res.status(403).send({ message: "Invalid refresh token" });
+    return res.status(403).send({ message: "Invalid refresh token" });
   }
 };
 
@@ -117,6 +119,6 @@ export const fetchUser = async (req, res) => {
       user,
     });
   } catch (error) {
-    res.status(500).send({ message: "An error occurred", error });
+    return res.status(500).send({ message: "An error occurred", error });
   }
 };

@@ -8,7 +8,7 @@ const URL =
     ? process.env.HOST
     : `http://localhost:${PORT}`;
 
-const keepAwake = new cron.CronJob("*/1 * * * *", function () {
+const keepAwake = new cron.CronJob("*/14 * * * *", function () {
   console.log(`${URL}/ping`);
 
   https

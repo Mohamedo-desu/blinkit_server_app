@@ -15,21 +15,25 @@ sessionStore.on("error", (error) => {
 });
 
 export const authenticate = async (email, password) => {
-  if (email && password) {
-    const user = await Admin.findOne({ email });
-    if (!user) {
-      return null;
+  try {
+    if (email && password) {
+      const user = await Admin.findOne({ email });
+      if (!user) {
+        return null;
+      }
+
+      if (user.password === password) {
+        console.log(user.password);
+        return Promise.resolve({ email, password });
+      } else {
+        return null;
+      }
     }
 
-    if (user.password === password) {
-      console.log(user.password);
-      return Promise.resolve({ email, password });
-    } else {
-      return null;
-    }
+    return null;
+  } catch (error) {
+    console.log(error);
   }
-
-  return null;
 };
 
 export const PORT = process.env.PORT || 3000;

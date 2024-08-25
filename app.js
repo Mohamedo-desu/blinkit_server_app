@@ -4,6 +4,7 @@ import fastifySocketIO from "fastify-socket.io";
 import { PORT } from "./src/config/config.js";
 import { connectDB } from "./src/config/connect.js";
 import { admin, buildAdminRouter } from "./src/config/setup.js";
+import keepAwake from "./src/cronJobs/keepAwake.js";
 import { registerRoutes } from "./src/routes/index.js";
 
 const start = async () => {
@@ -24,16 +25,21 @@ const start = async () => {
 
   await buildAdminRouter(app);
 
+  app.get("/ping", async (_, reply) => {
+    return reply.send("pong");
+  });
+
   app.listen({ port: PORT, host: "0.0.0.0" }, (err, address) => {
     if (err) {
       console.error(err);
       process.exit(1);
     }
     console.log(
-      `Blinkit Server listening at ${address}${admin.options.rootPath}`
+      `Blinkit Server listening at http://localhost:${PORT}${admin.options.rootPath}`
     );
   });
   app.ready().then(() => {
+    keepAwake.start();
     app.io.on("connection", (socket) => {
       console.log("A user connected ✅");
 

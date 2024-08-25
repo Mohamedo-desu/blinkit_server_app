@@ -20,7 +20,9 @@ export const authenticate = async (email, password) => {
     if (!user) {
       return null;
     }
+
     if (user.password === password) {
+      console.log(user.password);
       return Promise.resolve({ email, password });
     } else {
       return null;
@@ -30,5 +32,5 @@ export const authenticate = async (email, password) => {
   return null;
 };
 
-export const PORT = process.env.PORT || 5000;
+export const PORT = process.env.PORT || 3000;
 export const COOKIE_PASSWORD = process.env.COOKIE_PASSWORD;

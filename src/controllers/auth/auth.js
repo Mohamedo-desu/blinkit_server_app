@@ -49,6 +49,8 @@ export const loginCustomer = async (req, res) => {
 export const loginDeliveryPartner = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body);
+
     const deliveryPartner = await DeliveryPartner.findOne({ email });
 
     if (!deliveryPartner || password !== deliveryPartner.password) {
